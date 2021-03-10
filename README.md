@@ -8,7 +8,7 @@
 
 ***
 <a name="Info"></a>
-##Information basique
+## Information basique
 Collaborateur: Euphoria-81, yoshibox, 404-42.
 
 Rôle:
@@ -20,20 +20,20 @@ Rôle:
 Projet en cours de construction.
 ***
 <a name="Presentation"></a>
-##Présentation
+## Présentation
 
 
 ***
 <a name="techno"></a>
-##Installation & Technologie utilisée
+## Installation & Technologie utilisée
 
-###Installation:
+### Installation:
 ```
 $ git clone https://example.com
 $ cd ../path/to/the/file
 ```
 
-###Technologie utilisée:
+### Technologie utilisée:
 Language de programmation:
 * Java.
 
