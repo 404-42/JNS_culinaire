@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Recette implements Comparator<Recette>
+public class Recette implements Comparable<Recette>
 {
 	public String nom;
 	public String categorie;
@@ -15,7 +15,7 @@ public class Recette implements Comparator<Recette>
 	public ArrayList<Ingrédient> ingrédients;
 	
 	public File image;
-	
+
 	public Recette(String name)
 	{
 		this.nom = name;
@@ -28,14 +28,12 @@ public class Recette implements Comparator<Recette>
 		
 		this.image = null;
 	}
-	
-	
-	
+
 
 	@Override
-	public int compare(Recette arg0, Recette arg1)
+	public int compareTo(Recette arg0)
 	{
-		return arg0.nom.compareTo(arg0.nom);
+		return this.nom.compareTo(arg0.nom);
 	}
 
 }
