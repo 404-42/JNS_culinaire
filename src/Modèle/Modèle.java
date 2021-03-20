@@ -3,20 +3,23 @@ package Modèle;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Modèle
 {
-	TreeSet<Recette> recettes;
+	TreeSet<String> recettesListe;
+	Hashtable<String, Recette> recettes;
 	
 	public Modèle()
 	{
-		this.recettes = new TreeSet<Recette>();
+		this.recettes = new Hashtable<String, Recette>();
+		this.recettesListe = new TreeSet<String>();
 		
 		parseRecipes();
 	}
-	
+
 	private void parseRecipes()
 	{
 		// The class loader that loaded the class
@@ -39,7 +42,8 @@ public class Modèle
         	if (line.charAt(0) == 'n')
         	{
         		r = new Recette(line.substring(1));
-        		this.recettes.add(r);
+        		this.recettes.put(line.substring(1), r);
+        		this.recettesListe.add(line.substring(1));
         	}
         	// Else if de l'id (pour avoir le chemin de l'image)
         	else if (line.charAt(0) == 'c') r.categorie = line.substring(1);
