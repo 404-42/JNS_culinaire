@@ -1,21 +1,28 @@
 package Modèle;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Hashtable;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Modèle
 {
 	TreeSet<String> recettesListe;
 	Hashtable<String, Recette> recettes;
+	Hashtable<String, Set<Recette>> ingrédientsListe;
+	Hashtable<String, Set<Recette>> catégoriesListe;
 	
 	public Modèle()
 	{
 		this.recettes = new Hashtable<String, Recette>();
 		this.recettesListe = new TreeSet<String>();
+		this.ingrédientsListe = new Hashtable<String, Set<Recette>>(); // à remplir
+		this.catégoriesListe = new Hashtable<String, Set<Recette>>(); // à remplir
+		
 		
 		parseRecipes();
 	}
@@ -45,7 +52,8 @@ public class Modèle
         		this.recettes.put(line.substring(1), r);
         		this.recettesListe.add(line.substring(1));
         	}
-        	// Else if de l'id (pour avoir le chemin de l'image)
+        	
+        	else if (line.charAt(0) == 'd') r.image = new File("resources/images/".concat(line.substring(1)).concat(".jpg")); // Vérifier que le chemin est le bon
         	else if (line.charAt(0) == 'c') r.categorie = line.substring(1);
         	else if (line.charAt(0) == 'i') r.etapes.add(new Etape(line.substring(1)));
         	else if (line.charAt(0) == 't' && line.charAt(1) != 'n') r.tempsEstimee = Integer.parseInt(line.substring(1));
