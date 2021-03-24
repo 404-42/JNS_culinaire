@@ -13,15 +13,15 @@ public class Modèle
 {
 	TreeSet<String> recettesListe;
 	Hashtable<String, Recette> recettes;
-	Hashtable<String, Set<Recette>> ingrédientsListe;
-	Hashtable<String, Set<Recette>> catégoriesListe;
+	Hashtable<String, Set<Recette>> ingrédients;
+	Hashtable<String, Set<Recette>> catégories;
 	
 	public Modèle()
 	{
 		this.recettes = new Hashtable<String, Recette>();
 		this.recettesListe = new TreeSet<String>();
-		this.ingrédientsListe = new Hashtable<String, Set<Recette>>(); // à remplir
-		this.catégoriesListe = new Hashtable<String, Set<Recette>>(); // à remplir
+		this.ingrédients = new Hashtable<String, Set<Recette>>(); // à remplir
+		this.catégories = new Hashtable<String, Set<Recette>>(); // à remplir
 		
 		
 		parseRecipes();
