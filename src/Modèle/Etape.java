@@ -1,7 +1,12 @@
 package Modèle;
 
-public class Etape
+import java.io.Serializable;
+
+public class Etape implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
+	
 	public String todo;
 	public String note;
 	

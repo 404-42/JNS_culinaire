@@ -1,11 +1,15 @@
 package Modèle;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Recette implements Comparable<Recette>
+public class Recette implements Comparable<Recette>, Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
+	
 	public String nom;
 	public String categorie;
 	public int tempsEstimee;

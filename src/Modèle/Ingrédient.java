@@ -1,7 +1,12 @@
 package Modèle;
 
-public class Ingrédient
+import java.io.Serializable;
+
+public class Ingrédient implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
+	
 	public String nom;
 	public String quantité;
 	

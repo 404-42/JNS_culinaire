@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Set;
@@ -13,39 +14,43 @@ public class Modèle
 {
 	TreeSet<String> recettesListe;
 	Hashtable<String, Recette> recettes;
-	Hashtable<String, Set<Recette>> ingrédients;
-	Hashtable<String, Set<Recette>> catégories;
+	Hashtable<String, HashSet<String>> ingrédients;
+	Hashtable<String, HashSet<String>> catégories;
 	
 	public Modèle()
 	{
 		this.recettes = new Hashtable<String, Recette>();
+		
 		this.recettesListe = new TreeSet<String>();
-		this.ingrédients = new Hashtable<String, Set<Recette>>(); // à remplir
-		this.catégories = new Hashtable<String, Set<Recette>>(); // à remplir
+		this.ingrédients = new Hashtable<String, HashSet<String>>();
+		this.catégories = new Hashtable<String, HashSet<String>>(); // à remplir
 		
-		
+
 		parseRecipes();
+		parseIngredients();
 	}
 
 	private void parseRecipes()
 	{
 		// The class loader that loaded the class
         ClassLoader classLoader = getClass().getClassLoader();
-        InputStream data = classLoader.getResourceAsStream("resources/data");
-        BufferedReader br = new BufferedReader(new InputStreamReader(data));
         
-
-        // the stream holding the file content
+        InputStream data = classLoader.getResourceAsStream("resources/data");
         if (data == null) throw new IllegalArgumentException("file not found! " + "data");
         
-        Scanner s = new Scanner(br);
+        BufferedReader databr = new BufferedReader(new InputStreamReader(data));
+
+
+        Scanner s = new Scanner(databr);
         
         Recette r = null;
         Ingrédient i = null;
-        
-        String line = s.nextLine();
-        do
+        String line = null;
+
+        while (s.hasNextLine())
         {
+        	line = s.nextLine();
+        	
         	if (line.charAt(0) == 'n')
         	{
         		r = new Recette(line.substring(1));
@@ -69,9 +74,39 @@ public class Modèle
         		i = new Ingrédient(name, measure);
         		r.ingrédients.add(i);
         	}
-        	
-        	if (s.hasNextLine()) line = s.nextLine();
-        } while (s.hasNextLine());
+        }
         
+        s.close();
+	}
+	
+	private void parseIngredients()
+	{
+		ClassLoader classLoader = getClass().getClassLoader();
+        
+        InputStream ingredient = classLoader.getResourceAsStream("resources/ingredients");
+        if (ingredient == null) throw new IllegalArgumentException("file not found! " + "ingredients");
+        
+        BufferedReader ingredientbr = new BufferedReader(new InputStreamReader(ingredient));
+
+
+        Scanner s = new Scanner(ingredientbr);
+        
+        String line = null;
+        String cur = null;
+        
+        while (s.hasNextLine())
+        {
+        	line = s.nextLine();
+        	if (line.charAt(0) == '+')
+        	{
+        		cur = line.substring(1);
+        		this.ingrédients.put(cur, new HashSet<>());
+        	}
+        	else
+        	{
+        		this.ingrédients.get(cur).add(line);
+        	}
+        }
+        s.close();
 	}
 }
