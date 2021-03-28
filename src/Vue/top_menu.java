@@ -31,26 +31,26 @@ public class top_menu {
 
 	    TextField barre_de_recherche = new TextField("Je recherche une recette par nom, ingrédient, ou catégorie.");
 	    barre_de_recherche.setId("barre_de_recherche");
-	    barre_de_recherche.setTranslateX(primaryScreenBounds.getWidth()/10);
+	    barre_de_recherche.setTranslateX(primaryScreenBounds.getWidth()/7);
 	    
 	    
 	    FileInputStream inputstream = new FileInputStream("src/resources/images/loupe.png"); 
 	    Image image = new Image(inputstream, 25, 25, false, false); 
 	    ImageView loupe = new ImageView(image);
 	    loupe.setId("loupe");
-	    loupe.setTranslateX(-110);
+	    loupe.setTranslateX(-60);
 	    loupe.setTranslateY(5);
 	    
 	    
 	    //______________________________________________________________________________________
 	    
 	    Label trie = new Label("Trier par:");
-	    trie.setTranslateX(primaryScreenBounds.getWidth()/5);
+	    trie.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
 	    ObservableList<String> trie_nom = FXCollections.observableArrayList("nom", "ingrédiant", "catégorie");
 	    ListView<String> list_view = new ListView<String>(trie_nom);
 	    list_view.setId("list_view");
-	    list_view.setTranslateX(primaryScreenBounds.getWidth()/5);
+	    list_view.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
 	    //______________________________________________________________________________________
 	    
