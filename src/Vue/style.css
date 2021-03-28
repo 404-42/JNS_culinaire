@@ -1,2 +1,17 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+#barre_de_recherche {
+	-fx-pref-width: 600px;
+	-fx-padding: 10px;
+}
+#barre_de_recherche:hover {
+	-fx-background-color: red;
+}
+
+#list_view {
+	-fx-pref-width: 120px;
+	-fx-pref-height: 50px;
+}
+#list_view:hover {
+	-fx-background-color: red;
+}
