@@ -24,7 +24,7 @@ public class top_menu {
 		HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(15, 12, 10, 12));
 	    hbox.setSpacing(10);
-	    hbox.setStyle("-fx-background-color: #369;");
+	    hbox.setId("top_menu_div");
 	    
 	    
 	    //______________________________________________________________________________________

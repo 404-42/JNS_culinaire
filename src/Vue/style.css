@@ -1,5 +1,11 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+/*_______________________top_menu_____________________________ */
+
+#top_menu_div {
+	-fx-background-color: #369;
+}
+
 #barre_de_recherche {
 	-fx-pref-width: 600px;
 	-fx-padding: 10px;
@@ -28,4 +34,11 @@
 
 
 /*_______________________________________________________________ */
+
+
+#menu_left_div {
+	-fx-background-color: #aaa;
+	-fx-pref-width: 200px;
+	-fx-pref-height: 800px;
+}
 

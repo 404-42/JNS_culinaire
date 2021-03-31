@@ -4,6 +4,7 @@ import Modèle.Modèle;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -24,8 +25,10 @@ public class Vue extends Application {
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		HBox top = new top_menu().set_top();
+		MenuBar left = new left_menu().set_left();
 		
 		root.setTop(top);
+		root.setLeft(left);
 		
 		
 		
