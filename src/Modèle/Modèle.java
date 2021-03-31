@@ -16,18 +16,29 @@ public class Modèle
 	Hashtable<String, Recette> recettes;
 	Hashtable<String, HashSet<String>> ingrédients;
 	Hashtable<String, HashSet<String>> catégories;
-	
+
 	public Modèle()
 	{
 		this.recettes = new Hashtable<String, Recette>();
 		
 		this.recettesListe = new TreeSet<String>();
 		this.ingrédients = new Hashtable<String, HashSet<String>>();
-		this.catégories = new Hashtable<String, HashSet<String>>(); // à remplir
+		this.catégories = new Hashtable<String, HashSet<String>>();
 		
 
 		parseRecipes();
 		parseIngredients();
+		parseCategories();
+		
+		for (String s: this.catégories.keySet())
+		{
+			System.out.println(s);
+			for (String e: this.catégories.get(s))
+			{
+				System.out.print(" - ");
+				System.out.println(e);
+			}
+		}
 	}
 
 	private void parseRecipes()
@@ -105,6 +116,37 @@ public class Modèle
         	else
         	{
         		this.ingrédients.get(cur).add(line);
+        	}
+        }
+        s.close();
+	}
+	
+	private void parseCategories()
+	{
+		ClassLoader classLoader = getClass().getClassLoader();
+        
+        InputStream categorie = classLoader.getResourceAsStream("resources/categories");
+        if (categorie == null) throw new IllegalArgumentException("file not found! " + "categories");
+        
+        BufferedReader categoriebr = new BufferedReader(new InputStreamReader(categorie));
+
+
+        Scanner s = new Scanner(categoriebr);
+        
+        String line = null;
+        String cur = null;
+        
+        while (s.hasNextLine())
+        {
+        	line = s.nextLine();
+        	if (line.charAt(0) == '+')
+        	{
+        		cur = line.substring(1);
+        		this.catégories.put(cur, new HashSet<>());
+        	}
+        	else
+        	{
+        		this.catégories.get(cur).add(line);
         	}
         }
         s.close();
