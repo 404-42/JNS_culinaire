@@ -1,6 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-/*_______________________top_menu_____________________________ */
+/*_______________________menu_du_haut_____________________________ */
 
 #top_menu_div {
 	-fx-background-color: #369;
@@ -26,19 +26,29 @@
 
 #list_view {
 	-fx-pref-width: 120px;
-	-fx-pref-height: 50px;
 }
+
 #list_view:hover {
 	-fx-background-color: red;
 }
 
 
-/*_______________________________________________________________ */
+/*___________________________menu_de_gauche___________________________ */
 
+
+#menu_left_div, #m, .button_left {
+	-fx-pref-width: 200px;
+	-fx-background-color: #aaa;
+}
 
 #menu_left_div {
-	-fx-background-color: #aaa;
-	-fx-pref-width: 200px;
 	-fx-pref-height: 800px;
+}
+
+#m, .button_left {
+	-fx-pref-height: 200px;
+	-fx-border-insets: 5;
+	-fx-border-width: 0 0 2 0;
+	-fx-border-style: solid;
 }
 

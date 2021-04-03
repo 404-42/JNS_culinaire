@@ -1,42 +1,49 @@
 package Vue;
 
+
 import java.io.FileNotFoundException;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 public class left_menu {
 	
-	public MenuBar set_left() throws FileNotFoundException {	
+	public VBox set_left() throws FileNotFoundException {
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		
-		MenuBar menu_bar = new MenuBar();
 
-		menu_bar.setId("menu_left_div");
+		VBox menu_bar = new VBox();
+		MenuButton m = new MenuButton("MenuButton");
         
 
-        Menu categorie = new Menu("Catégorie");
-        Menu favorie = new Menu("favorie");
-        Menu aide = new Menu("Aide");
-        
-        MenuItem viande = new MenuItem("");
+		Button favorie = new Button("Favorie");
+		Button aide = new Button("Aide");
+		
+        MenuItem viande = new MenuItem("poulet");
         MenuItem legume = new MenuItem("Open File");
         MenuItem exitItem = new MenuItem("Exit");
         
         
+		menu_bar.setId("menu_left_div");
+		m.setId("m");
+		favorie.getStyleClass().add("button_left");
+		aide.getStyleClass().add("button_left");
         
-        // Add menuItems to the Menus
-        categorie.getItems().addAll(viande, legume, exitItem);
-        menu_bar.getMenus().addAll(categorie, favorie, aide);
-
+		
+        m.getItems().addAll(viande, legume, exitItem);
+        menu_bar.getChildren().addAll(m, favorie, aide);
 	    
 	    //______________________________________________________________________________________
 	    
-	    
-	    
+        
 	    
 		return menu_bar;
 	}

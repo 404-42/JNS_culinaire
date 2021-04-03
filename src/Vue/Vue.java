@@ -6,14 +6,16 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Vue extends Application {
 	public static void main(String[] args) {
-		// Changer d'emplacement quand le constructeur de Vue sera créer
+
 		Modèle modl = new Modèle();
 		launch(args);
 	}
@@ -21,11 +23,12 @@ public class Vue extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane root = new BorderPane();
+		
 		Scene scene = new Scene(root,800,700);
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		HBox top = new top_menu().set_top();
-		MenuBar left = new left_menu().set_left();
+		VBox left = new left_menu().set_left();
 		
 		root.setTop(top);
 		root.setLeft(left);

@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -47,8 +48,8 @@ public class top_menu {
 	    Label trie = new Label("Trier par:");
 	    trie.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
-	    ObservableList<String> trie_nom = FXCollections.observableArrayList("nom", "ingrédiant", "catégorie");
-	    ListView<String> list_view = new ListView<String>(trie_nom);
+	    ChoiceBox list_view = new ChoiceBox(FXCollections.observableArrayList("nom", "ingrédiant", "catégorie"));
+
 	    list_view.setId("list_view");
 	    list_view.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
