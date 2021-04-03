@@ -49,6 +49,7 @@ public class top_menu {
 	    trie.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
 	    ChoiceBox list_view = new ChoiceBox(FXCollections.observableArrayList("nom", "ingrédiant", "catégorie"));
+	    list_view.setValue("nom");
 
 	    list_view.setId("list_view");
 	    list_view.setTranslateX(primaryScreenBounds.getWidth()/4);
