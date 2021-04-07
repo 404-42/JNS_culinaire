@@ -29,9 +29,11 @@ public class Vue extends Application {
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		HBox top = new top_menu().set_top();
 		VBox left = new left_menu().set_left();
+		FlowPane middel = new middel_menu().set_middel();
 		
 		root.setTop(top);
 		root.setLeft(left);
+		root.setCenter(middel);
 		
 		
 		

@@ -21,7 +21,7 @@ public class left_menu {
 		
 
 		VBox menu_bar = new VBox();
-		MenuButton m = new MenuButton("MenuButton");
+		MenuButton m = new MenuButton("Ingrédient");
         
 
 		Button favorie = new Button("Favorie");

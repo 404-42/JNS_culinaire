@@ -52,3 +52,10 @@
 	-fx-border-style: solid;
 }
 
+
+/*___________________________menu_du_centre___________________________ */
+
+
+#middle {
+	-fx-background-color: #CC8;
+}
