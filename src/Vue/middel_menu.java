@@ -40,7 +40,7 @@ public class middel_menu {
 		
 		GridPane grid_pane = new GridPane();
 	    grid_pane.setMinSize(300, 300);
-	    grid_pane.setPadding(new Insets(10, 10, 10, 10)); 
+	    grid_pane.setPadding(new Insets(50, 70, 10, 20)); 
 	    grid_pane.setVgap(5); 
 	    grid_pane.setHgap(5);
 	    grid_pane.setAlignment(Pos.BOTTOM_LEFT);
@@ -71,7 +71,7 @@ public class middel_menu {
 	    Text nom = new Text(name); 
 	    
 	    grid_pane.add(nom, 0, 2);
-	    grid_pane.add(new ImageView(favorie_img), 6, 3);
+	    grid_pane.add(new ImageView(favorie_img), 42, 3);
 	    
 	    
 		return grid_pane;
