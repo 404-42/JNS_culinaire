@@ -1,6 +1,7 @@
 package Vue;
 
 import Modèle.Modèle;
+import controleur.Controleur;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -14,14 +15,19 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Vue extends Application {
+	
 	public static void main(String[] args) {
-
-		Modèle modl = new Modèle();
 		launch(args);
 	}
 
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		Modèle modl = new Modèle();
+		Controleur ctrl = new Controleur(modl);
+		
+		
 		BorderPane root = new BorderPane();
 		
 		Scene scene = new Scene(root,800,700);

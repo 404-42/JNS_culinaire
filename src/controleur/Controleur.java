@@ -1,10 +1,10 @@
 package controleur;
 
+import Modèle.Modèle;
+
 public class Controleur {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public Controleur(Modèle modl) {
+		
 	}
-
 }
