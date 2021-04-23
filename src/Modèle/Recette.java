@@ -1,9 +1,10 @@
 package Modèle;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 
 public class Recette implements Comparable<Recette>, Serializable, Iterable<Etape>
@@ -15,10 +16,11 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 	public String categorie;
 	public int tempsEstimee;
 	public int personne;
+	boolean isFavorite;
 	
 	public ArrayList<Etape> etapes;
 	public ArrayList<Ingrédient> ingrédients;
-	
+
 	public File image;
 
 	public Recette(String name)
@@ -27,11 +29,66 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 		this.categorie = null;
 		this.tempsEstimee = 0;
 		this.personne = 0;
+		this.isFavorite = false;
 		
 		this.etapes = new ArrayList<Etape>();
 		this.ingrédients = new ArrayList<Ingrédient>();
 		
 		this.image = null;
+	}
+	
+	public boolean parameterFileExist()
+	{
+		return new File("Donnees_Utilisateur/RecipesParameters/".concat(this.nom)).exists();
+	}
+	
+	public void createParametersFile()
+	{
+		try
+		{
+			new File("Donnees_Utilisateur/RecipesParameters/".concat(this.nom)).createNewFile();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeParametersToFile()
+	{
+		if (!parameterFileExist()) createParametersFile();
+		
+		File f = new File("Donnees_Utilisateur/RecipesParameters/".concat(this.nom));
+		
+		try {
+			FileWriter fw = new FileWriter(f);
+			fw.write("f");fw.write(this.isFavorite ? "1" : "0"); fw.write("\n");
+			
+			for (Etape e: this.etapes)
+			{
+				if (e.note != null)
+				{
+					fw.write(e.instruction);
+					fw.write(";");
+					fw.write(e.note);
+					fw.write("\n");
+				}
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public Etape getEtape(String inst)
+	{
+		for (Etape e: etapes)
+		{
+			if (e.instruction.equals(inst)) return e;
+		}
+		
+		return null;
 	}
 
 

@@ -1,21 +1,27 @@
 package Modèle;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class Modèle
 {
-	TreeSet<String> recettesListe;
-	Hashtable<String, Recette> recettes;
-	Hashtable<String, HashSet<String>> ingrédients;
-	Hashtable<String, HashSet<String>> catégories;
+	public TreeSet<String> recettesListe;
+	public Hashtable<String, Recette> recettes;
+	public Hashtable<String, HashSet<String>> ingrédients;
+	public Hashtable<String, HashSet<String>> catégories;
 
 	public Modèle()
 	{
@@ -24,21 +30,104 @@ public class Modèle
 		this.recettesListe = new TreeSet<String>();
 		this.ingrédients = new Hashtable<String, HashSet<String>>();
 		this.catégories = new Hashtable<String, HashSet<String>>();
-		
 
 		parseRecipes();
 		parseIngredients();
 		parseCategories();
+		parseRecipesParameters();
+	}
+	
+	/* Fonction qui permet de changer (toggle)
+	   le fait qu'une recette soit favoris ou non */
+	public boolean toggleFavorite(String recipe)
+	{
+		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
+		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
 		
-		for (String s: this.catégories.keySet())
+		File recette = new File(RecipesParameters, recipe);
+		
+		if (!recette.exists())
 		{
-			System.out.println(s);
-			for (String e: this.catégories.get(s))
-			{
-				System.out.print(" - ");
-				System.out.println(e);
+			this.recettes.get(recette).isFavorite = true;
+			
+			try {
+				recette.createNewFile();
+				BufferedWriter bw = new BufferedWriter(new FileWriter(recette));
+				bw.write("f1");
+				bw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
+		else
+		{
+			RandomAccessFile raf;
+			try {
+				raf = new RandomAccessFile(recette, "rw");
+				raf.seek(1);
+				int actual = raf.read();
+				
+				raf.seek(1);
+				if (actual == '0')
+				{
+					raf.write('1');
+					this.recettes.get(recette).isFavorite = true;
+				}
+				else
+				{
+					raf.write('0');
+					this.recettes.get(recette).isFavorite = false;
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	public boolean stockageNote(Recette r, String etape, String note)
+	{
+		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
+		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
+		
+		File recette = new File(RecipesParameters, r.nom);
+		
+		String line = null;
+		String[] split;
+		boolean trouve = false;
+		
+		BufferedReader br = null;
+		PrintWriter pw = null;
+		
+		try {
+			br = new BufferedReader(new FileReader(recette));
+			pw = new PrintWriter(new FileWriter(recette)); 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			while (!trouve && (line = br.readLine()) != null)
+			{
+				split = line.split(";");
+				
+				if (split[0] == etape)
+				{
+					trouve = true;
+					
+				}
+			}
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	return true;
 	}
 
 	private void parseRecipes()
@@ -150,5 +239,54 @@ public class Modèle
         	}
         }
         s.close();
+	}
+	
+	private void parseRecipesParameters()
+	{
+		File User_Datas = new File("Donnees_Utilisateur");
+		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
+		
+		if (!User_Datas.exists()) User_Datas.mkdir();
+		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
+		
+		// Donnees_Utilisateur est un dossier externe, pas besoin de classLoader
+		
+		BufferedReader br = null;
+		Scanner s = null;
+		String line = null;
+		Recette r = null;
+		
+		for (String file: RecipesParameters.list())
+		{
+			try {
+				br = new BufferedReader(new FileReader(new File(RecipesParameters, file)));
+				s = new Scanner(br);
+				
+				r = recettes.get(file);
+				
+				
+				while (s.hasNext())
+				{
+					line = s.nextLine();
+					
+					if (line.charAt(0) == 'f')
+					{
+						if (line.charAt(1) == '0') r.isFavorite = false;
+						else r.isFavorite = true;
+					}
+					if (line.charAt(0) == '-')
+					{
+						String[] splitString = line.split(";");
+						// Vérifier que splitString à une taille de 2
+						
+						r.getEtape(splitString[0]).note = splitString[1];
+						// Vérifier que r.getEtape != null
+					}
+				}
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
