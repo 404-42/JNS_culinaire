@@ -202,7 +202,7 @@ public class Modèle
         	}
         	else
         	{
-        		this.ingrédients.get(cur).add(line);
+        		this.ingrédients.get(cur).add(line.toLowerCase());
         	}
         }
         s.close();
@@ -233,7 +233,7 @@ public class Modèle
         	}
         	else
         	{
-        		this.catégories.get(cur).add(line);
+        		this.catégories.get(cur).add(line.toLowerCase());
         	}
         }
         s.close();
