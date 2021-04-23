@@ -88,7 +88,7 @@ public class Modèle
 		return true;
 	}
 	
-	public boolean stockageNote(Recette r, String etape, String note)
+	public void stockageNote(Recette r, String etape, String note)
 	{
 		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
 		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
@@ -126,8 +126,6 @@ public class Modèle
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	return true;
 	}
 
 	private void parseRecipes()
@@ -154,8 +152,8 @@ public class Modèle
         	if (line.charAt(0) == 'n')
         	{
         		r = new Recette(line.substring(1));
-        		this.recettes.put(line.substring(1), r);
-        		this.recettesListe.add(line.substring(1));
+        		this.recettes.put(line.substring(1).toLowerCase(), r);
+        		this.recettesListe.add(line.substring(1).toLowerCase());
         	}
         	
         	else if (line.charAt(0) == 'd') r.image = new File("resources/images/".concat(line.substring(1)).concat(".jpg")); // Vérifier que le chemin est le bon
@@ -199,7 +197,7 @@ public class Modèle
         	line = s.nextLine();
         	if (line.charAt(0) == '+')
         	{
-        		cur = line.substring(1);
+        		cur = line.substring(1).toLowerCase();
         		this.ingrédients.put(cur, new HashSet<>());
         	}
         	else
@@ -230,7 +228,7 @@ public class Modèle
         	line = s.nextLine();
         	if (line.charAt(0) == '+')
         	{
-        		cur = line.substring(1);
+        		cur = line.substring(1).toLowerCase();
         		this.catégories.put(cur, new HashSet<>());
         	}
         	else
@@ -262,7 +260,7 @@ public class Modèle
 				br = new BufferedReader(new FileReader(new File(RecipesParameters, file)));
 				s = new Scanner(br);
 				
-				r = recettes.get(file);
+				r = recettes.get(file.toLowerCase());
 				
 				
 				while (s.hasNext())

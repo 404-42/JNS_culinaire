@@ -17,7 +17,7 @@ public class Controleur {
 	{
 		ArrayList<Recette> résultats = new ArrayList<Recette>();
 		
-		for (String s: this.modl.recettesListe.tailSet(recherche))
+		for (String s: this.modl.recettesListe.tailSet(recherche.toLowerCase()))
 		{
 			résultats.add(this.modl.recettes.get(s));
 		}
