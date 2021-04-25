@@ -57,10 +57,10 @@
 
 
 #middle {
-	-fx-background-color: #FF8;
+	-fx-background-color: #FFA;
 	-fx-padding: 5px;
 }
 
 .plat {
-	
+	-fx-max-width: 330px;
 }
