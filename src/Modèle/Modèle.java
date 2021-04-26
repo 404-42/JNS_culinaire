@@ -39,93 +39,30 @@ public class Modèle
 	
 	/* Fonction qui permet de changer (toggle)
 	   le fait qu'une recette soit favoris ou non */
-	public boolean toggleFavorite(String recipe)
+	public void toggleFavorite(String recipe)
 	{
-		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
-		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
+		Recette r = this.recettes.get(recipe);
+		r.isFavorite = !r.isFavorite;
 		
-		File recette = new File(RecipesParameters, recipe);
-		
-		if (!recette.exists())
+		if (r.parameterFileExist()) // Si le fichier exist il suffit de remplacer un byte
 		{
-			this.recettes.get(recette).isFavorite = true;
-			
 			try {
-				recette.createNewFile();
-				BufferedWriter bw = new BufferedWriter(new FileWriter(recette));
-				bw.write("f1");
-				bw.flush();
+				RandomAccessFile raf = new RandomAccessFile(new File("Donnees_Utilisateur/RecipesParameters/".concat(recipe)), "rw");
+				raf.seek(1);
+				raf.write(r.isFavorite ? '1' : '0');
+				
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		else
-		{
-			RandomAccessFile raf;
-			try {
-				raf = new RandomAccessFile(recette, "rw");
-				raf.seek(1);
-				int actual = raf.read();
-				
-				raf.seek(1);
-				if (actual == '0')
-				{
-					raf.write('1');
-					this.recettes.get(recette).isFavorite = true;
-				}
-				else
-				{
-					raf.write('0');
-					this.recettes.get(recette).isFavorite = false;
-				}
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-		return true;
+		else r.writeParametersToFile();
 	}
 	
 	public void stockageNote(Recette r, String etape, String note)
 	{
-		File RecipesParameters = new File("Donnees_Utilisateur/RecipesParameters");
-		if (!RecipesParameters.exists()) RecipesParameters.mkdir();
-		
-		File recette = new File(RecipesParameters, r.nom);
-		
-		String line = null;
-		String[] split;
-		boolean trouve = false;
-		
-		BufferedReader br = null;
-		PrintWriter pw = null;
-		
-		try {
-			br = new BufferedReader(new FileReader(recette));
-			pw = new PrintWriter(new FileWriter(recette)); 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while (!trouve && (line = br.readLine()) != null)
-			{
-				split = line.split(";");
-				
-				if (split[0] == etape)
-				{
-					trouve = true;
-					
-				}
-			}
-		} catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		r.getEtape(etape).note = note;
+		r.writeParametersToFile();
 	}
 
 	private void parseRecipes()
