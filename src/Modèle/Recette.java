@@ -16,7 +16,7 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 	public String categorie;
 	public int tempsEstimee;
 	public int personne;
-	boolean isFavorite;
+	public boolean isFavorite;
 	
 	public ArrayList<Etape> etapes;
 	public ArrayList<Ingrédient> ingrédients;

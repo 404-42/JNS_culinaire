@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -25,17 +27,23 @@ public class middel_menu {
 	public FlowPane set_middel() {
 		
 		FlowPane flow_pane = new FlowPane();
-		flow_pane.setHgap(25);
+		flow_pane.setHgap(3);
+		flow_pane.setVgap(25);
 		flow_pane.setId("middle");
 		ObservableList<Node> list = flow_pane.getChildren();
 		
 		
-		GridPane tmp = create_item("52837.jpg", "un nom", 3, false, false);
-		//tmp.getStyleClass().add("grid_item");
-		list.addAll(tmp);
+		for (int i=0; i < 5; i++) {
+			GridPane tmp = create_item("52837.jpg", "un nom", 3, false, false);
+			tmp.getStyleClass().add("grid_item");
+			flow_pane.setMargin(tmp, new Insets(5, 5, 5, 5));
+			list.addAll(tmp);
+		}
+		
 		
 		return flow_pane;
 	}
+	
 	
 	
 	
@@ -60,6 +68,10 @@ public class middel_menu {
 	    ));
 	    
 	    
+	    
+	    /*_____________________________________add_images______________________________________*/
+	    
+	    
 	    FileInputStream imageStream = null;
 	    
 		try {
@@ -70,8 +82,6 @@ public class middel_menu {
 		}
 		
 	    Image favorie_img = new Image(imageStream);
-	    Text nom = new Text(name);
-	    
 	    
 	    for (int i=1; i <= 5; i++) {
     		try {
@@ -82,7 +92,7 @@ public class middel_menu {
     		}
     		
     		Image etoile_img = new Image(imageStream);
-    		grid_pane.add(new ImageView(etoile_img), 15+i, 3);
+    		grid_pane.add(new ImageView(etoile_img), 13+i, 3);
 	    }
 	    
 	    try {
@@ -93,6 +103,16 @@ public class middel_menu {
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: parchemin.");
 		}
+	    
+	    
+	    /*_________________________________________________________________________________________*/
+	    
+
+	    Text nom = new Text(name);
+	    nom.setStyle("-fx-font-size: 16px;");
+	    
+	    
+	    /*_____________________________________add_new_elements___________________________________*/
 	    
 	    grid_pane.add(nom, 0, 2);
 	    grid_pane.add(new ImageView(favorie_img), 0, 3);

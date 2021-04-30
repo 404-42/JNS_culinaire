@@ -1,7 +1,10 @@
 package controleur;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 import Modèle.Ingrédient;
 import Modèle.Modèle;
@@ -13,7 +16,32 @@ public class Controleur {
 	
 	public Controleur(Modèle modl) {
 		this.modl = modl;
+		
+		for (Recette i : get_random_recette()) {
+			System.out.println(i.nom +" "+i.isFavorite);
+		}
 	}
+	
+	
+	public ArrayList<Recette> get_random_recette() {
+		
+		ArrayList<Recette> résultats = new ArrayList<Recette>();
+		int randomIndex;
+		Random random;
+		
+		Collection<Recette> recette = this.modl.recettes.values();
+		List<Recette> recette_list = new ArrayList<>(recette);
+		
+		for (int i=0; i < 20; i++) {
+			random = new Random();
+			randomIndex = random.nextInt(recette_list.size());
+			
+			résultats.add(recette_list.get(randomIndex));
+		}
+		
+		return résultats;
+	}
+	
 	
 	public ArrayList<Recette> getRecipeSearchResults(String recherche)
 	{
@@ -26,6 +54,7 @@ public class Controleur {
 		
 		return résultats;
 	}
+	
 	
 	public ArrayList<Recette> getIngredientSearchResults(String recherche)
 	{
@@ -45,6 +74,7 @@ public class Controleur {
 		
 		return résultatsFinal;
 	}
+	
 	
 	public ArrayList<Recette> getCategorieSearchResults(String recherche)
 	{

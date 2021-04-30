@@ -3,9 +3,14 @@ package Vue;
 import Modèle.Modèle;
 import controleur.Controleur;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -28,6 +33,11 @@ public class Vue extends Application {
 		Controleur ctrl = new Controleur(modl);
 		
 		
+		ScrollBar scroll = new ScrollBar();
+	    scroll.setMin(0);
+	    scroll.setOrientation(Orientation.VERTICAL);
+		
+		
 		BorderPane root = new BorderPane();
 		
 		Scene scene = new Scene(root,800,700);
@@ -37,9 +47,20 @@ public class Vue extends Application {
 		VBox left = new left_menu().set_left();
 		FlowPane middel = new middel_menu().set_middel();
 		
+		/*scroll.setContent(middel);
+		
+		BorderPane root2 = new BorderPane();
+		root2.setRight(scroll);
+		root2.setCenter(middel);*/
+		
+		ScrollPane root2 = new ScrollPane();
+		middel.setMinWidth(1046);
+		root2.setContent(middel);
+		root2.setPannable(true);
+		
 		root.setTop(top);
+		root.setCenter(root2);
 		root.setLeft(left);
-		root.setCenter(middel);
 		
 		
 		
