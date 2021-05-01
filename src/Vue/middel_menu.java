@@ -2,8 +2,12 @@ package Vue;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
+import Modèle.Recette;
+import controleur.Controleur;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -11,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -24,6 +29,15 @@ import javafx.scene.text.Text;
 
 public class middel_menu {
 	
+	
+	public Controleur ctrl;
+	
+	public middel_menu(Controleur ctrl) {
+		this.ctrl = ctrl;
+	}
+
+
+
 	public FlowPane set_middel() {
 		
 		FlowPane flow_pane = new FlowPane();
@@ -33,8 +47,11 @@ public class middel_menu {
 		ObservableList<Node> list = flow_pane.getChildren();
 		
 		
-		for (int i=0; i < 5; i++) {
-			GridPane tmp = create_item("52837.jpg", "un nom", 3, false, false);
+		ArrayList<Recette> recettes = ctrl.get_random_recette();
+		
+		for (Recette recette : recettes) {
+			
+			GridPane tmp = create_item(recette);
 			tmp.getStyleClass().add("grid_item");
 			flow_pane.setMargin(tmp, new Insets(5, 5, 5, 5));
 			list.addAll(tmp);
@@ -47,7 +64,16 @@ public class middel_menu {
 	
 	
 	
-	public GridPane create_item(String img, String name, int nb_etoile, boolean favorie, boolean ma_liste) {
+	
+	
+	
+	public GridPane create_item(Recette recette) {
+		String img = recette.image.getName(),
+				name = recette.nom;
+		int nb_etoile = 4;
+		boolean favorie = recette.isFavorite,
+				ma_liste = false;
+			
 		
 		GridPane grid_pane = new GridPane();
 	    grid_pane.setMinSize(300, 300);
@@ -66,6 +92,14 @@ public class middel_menu {
 					new BackgroundSize(300, 300, true, true, true, true)
 	    		)
 	    ));
+	    
+	    grid_pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("grid_pane clicked: " + name);
+                ctrl.switch_middel(recette);
+            }
+        });
 	    
 	    
 	    

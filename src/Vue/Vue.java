@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -20,6 +21,13 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Vue extends Application {
+	public Modèle modl = new Modèle();
+	public Controleur ctrl = new Controleur(modl, this);
+	public BorderPane root = new BorderPane();
+	public ScrollPane root2, root3;
+	public HBox top;
+	public VBox left;
+	public Scene scene;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -29,39 +37,25 @@ public class Vue extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Modèle modl = new Modèle();
-		Controleur ctrl = new Controleur(modl);
-		
 		
 		ScrollBar scroll = new ScrollBar();
 	    scroll.setMin(0);
 	    scroll.setOrientation(Orientation.VERTICAL);
-		
-		
-		BorderPane root = new BorderPane();
-		
-		Scene scene = new Scene(root,800,700);
+	    
+	    scene = new Scene(root,800,700);
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		HBox top = new top_menu().set_top();
-		VBox left = new left_menu().set_left();
-		FlowPane middel = new middel_menu().set_middel();
+		top = new top_menu(ctrl).set_top();
+		left = new left_menu(ctrl).set_left();
+		FlowPane middel1 = new middel_menu(ctrl).set_middel();
 		
-		/*scroll.setContent(middel);
-		
-		BorderPane root2 = new BorderPane();
-		root2.setRight(scroll);
-		root2.setCenter(middel);*/
-		
-		ScrollPane root2 = new ScrollPane();
-		middel.setMinWidth(1046);
-		root2.setContent(middel);
+		root2 = new ScrollPane();
+		middel1.setMinWidth(1046);
+		root2.setContent(middel1);
 		root2.setPannable(true);
 		
-		root.setTop(top);
-		root.setCenter(root2);
-		root.setLeft(left);
 		
+		this.switch_middel();
 		
 		
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
@@ -78,6 +72,25 @@ public class Vue extends Application {
 
 		
 		primaryStage.show();
+	}
+	
+	
+	public void switch_middel() {
+		System.out.println("switch_middel");
+		
+		root.setTop(top);
+		root.setLeft(left);
+
+		if (ctrl.current_recette == null) root.setCenter(root2);
+		else {
+			GridPane middel2 = new middel2_menu(ctrl).set_middel();
+			root3 = new ScrollPane();
+			middel2.setMinWidth(1046);
+			root3.setContent(middel2);
+			root3.setPannable(true);
+			
+			root.setCenter(root3);
+		}
 	}
 	
 	

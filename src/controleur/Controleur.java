@@ -9,17 +9,23 @@ import java.util.Random;
 import Modèle.Ingrédient;
 import Modèle.Modèle;
 import Modèle.Recette;
+import Vue.Vue;
 
 public class Controleur {
 
-	Modèle modl;
+	public Modèle modl;
+	public Vue vue;
+	public Recette current_recette = null;
 	
-	public Controleur(Modèle modl) {
+	
+	public Controleur(Modèle modl, Vue vue) {
 		this.modl = modl;
-		
-		for (Recette i : get_random_recette()) {
-			System.out.println(i.nom +" "+i.isFavorite);
-		}
+		this.vue = vue;
+	}
+	
+	public void switch_middel(Recette current_recette) {
+		this.current_recette = current_recette;
+		vue.switch_middel();
 	}
 	
 	

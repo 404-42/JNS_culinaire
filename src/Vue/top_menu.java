@@ -3,8 +3,11 @@ package Vue;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import controleur.Controleur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ChoiceBox;
@@ -13,11 +16,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 
 public class top_menu {
 	
+	public String txt_input = "Recherche une recette.";
+	public Controleur ctrl;
+	public String box_default = "nom";
+	
+	
+	public top_menu(Controleur ctrl) {
+		this.ctrl = ctrl;
+	}
+
+
+
 	public HBox set_top() throws FileNotFoundException {
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -30,7 +45,7 @@ public class top_menu {
 	    
 	    //______________________________________________________________________________________
 
-	    TextField barre_de_recherche = new TextField("Je recherche une recette par nom, ingrédient, ou catégorie.");
+	    TextField barre_de_recherche = new TextField(txt_input);
 	    barre_de_recherche.setId("barre_de_recherche");
 	    barre_de_recherche.setTranslateX(primaryScreenBounds.getWidth()/7);
 	    
@@ -54,7 +69,35 @@ public class top_menu {
 	    list_view.setId("list_view");
 	    list_view.setTranslateX(primaryScreenBounds.getWidth()/4);
 	    
-	    //______________________________________________________________________________________
+	    //________________________________event_______________________________________________
+	    
+	    barre_de_recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+	    	this.txt_input = newValue;
+	    });
+	    
+	    list_view.setOnAction(event -> {
+	        this.box_default = (String) list_view.getValue();
+	        System.out.println("new box value");
+	    });
+
+	    
+	    loupe.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			System.out.println("click loupe");
+			
+			switch (box_default) {
+				case "nom":
+					ctrl.getRecipeSearchResults(txt_input);
+					break;
+				case "ingrédiant":
+					ctrl.getIngredientSearchResults(txt_input);
+					break;
+				case "catégorie":
+					ctrl.getCategorieSearchResults(txt_input);
+					break;
+			}
+    	});
+	    
+	  //______________________________________________________________________________________
 	    
 	    
 	    
