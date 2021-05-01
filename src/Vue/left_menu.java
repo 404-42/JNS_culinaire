@@ -3,6 +3,7 @@ package Vue;
 
 import java.io.FileNotFoundException;
 
+import controleur.Controleur;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -16,6 +17,15 @@ import javafx.stage.Screen;
 
 public class left_menu {
 	
+	
+	public Controleur ctrl;
+	
+	
+	public left_menu(Controleur ctrl) {
+		this.ctrl = ctrl;
+	}
+	
+
 	public VBox set_left() throws FileNotFoundException {
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		
