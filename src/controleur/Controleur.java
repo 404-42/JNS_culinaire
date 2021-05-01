@@ -94,4 +94,9 @@ public class Controleur {
 		
 		return résultatsFinal;
 	}
+	
+	public void updateStars(String recette, int etoiles)
+	{
+		if (etoiles >= 0 && etoiles <= 5) this.modl.recettes.get(recette).etoiles = etoiles;
+	}
 }

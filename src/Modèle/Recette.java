@@ -16,6 +16,7 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 	public String categorie;
 	public int tempsEstimee;
 	public int personne;
+	public int etoiles;
 	public boolean isFavorite;
 	
 	public ArrayList<Etape> etapes;
@@ -29,6 +30,7 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 		this.categorie = null;
 		this.tempsEstimee = 0;
 		this.personne = 0;
+		this.etoiles = 0;
 		this.isFavorite = false;
 		
 		this.etapes = new ArrayList<Etape>();
@@ -62,7 +64,8 @@ public class Recette implements Comparable<Recette>, Serializable, Iterable<Etap
 		try {
 			FileWriter fw = new FileWriter(f);
 			fw.write("f");fw.write(this.isFavorite ? "1" : "0"); fw.write("\n");
-			
+			fw.write("e");fw.write(this.etoiles);fw.write("\n");
+
 			for (Etape e: this.etapes)
 			{
 				if (e.note != null)
