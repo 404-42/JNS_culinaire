@@ -209,6 +209,10 @@ public class Modèle
 						if (line.charAt(1) == '0') r.isFavorite = false;
 						else r.isFavorite = true;
 					}
+					if (line.charAt(0) == 'e')
+					{
+						r.etoiles = line.charAt(1) - 48;
+					}
 					if (line.charAt(0) == '-')
 					{
 						String[] splitString = line.split(";");
