@@ -148,8 +148,12 @@ public class middel_menu {
 	    
 	    /*_____________________________________add_new_elements___________________________________*/
 	    
-	    grid_pane.add(nom, 0, 2);
+	    
+	    grid_pane.add(nom, 0, 0);
 	    grid_pane.add(new ImageView(favorie_img), 0, 3);
+	    
+	    /*_________________________________________________________________________________________*/
+	    
 	    
 	    
 		return grid_pane;
