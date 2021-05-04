@@ -23,7 +23,9 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 
 
@@ -155,13 +157,16 @@ public class middel_menu {
 	    
 
 	    Text nom = new Text(name);
-	    nom.setStyle("-fx-font-size: 16px;");
+	    TextFlow text_pane = new TextFlow();
+	    
+	    nom.setStyle("-fx-font-size: 21px;");
+	    text_pane.getChildren().add(nom);
 	    
 	    
 	    /*_____________________________________add_new_elements___________________________________*/
 	    
 	    
-	    grid_pane.add(nom, 0, 0, 42, 1);
+	    grid_pane.add(text_pane, 0, 0, 42, 1);
 	    grid_pane.add(new ImageView(favorie_img), 0, 3);
 	    
 	    /*_________________________________________________________________________________________*/
