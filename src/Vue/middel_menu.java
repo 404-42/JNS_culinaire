@@ -97,11 +97,11 @@ public class middel_menu {
 	    
 	    
 	    grid_pane.setBackground(new Background(
-	    		new BackgroundImage(new Image("resources/images/"+img, 32, 32, false, true),
+	    		new BackgroundImage(new Image("resources/images/"+img, 300, 300, false, true),
 					BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT,
 					BackgroundPosition.DEFAULT,
-					new BackgroundSize(300, 300, true, true, true, true)
+					BackgroundSize.DEFAULT
 	    		)
 	    ));
 	    
@@ -161,7 +161,7 @@ public class middel_menu {
 	    /*_____________________________________add_new_elements___________________________________*/
 	    
 	    
-	    grid_pane.add(nom, 0, 0, 5, 1);
+	    grid_pane.add(nom, 0, 0, 10, 1);
 	    grid_pane.add(new ImageView(favorie_img), 0, 3);
 	    
 	    /*_________________________________________________________________________________________*/
