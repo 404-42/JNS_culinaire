@@ -31,20 +31,23 @@ public class middel_menu {
 	
 	
 	public Controleur ctrl;
+	public FlowPane flow_pane;
+	public ObservableList<Node> list;
 	
 	public middel_menu(Controleur ctrl) {
 		this.ctrl = ctrl;
 	}
 
+	
 
 
 	public FlowPane set_middel() {
 		
-		FlowPane flow_pane = new FlowPane();
+		flow_pane = new FlowPane();
 		flow_pane.setHgap(3);
 		flow_pane.setVgap(25);
 		flow_pane.setId("middle");
-		ObservableList<Node> list = flow_pane.getChildren();
+		list = flow_pane.getChildren();
 		
 		
 		ArrayList<Recette> recettes = ctrl.get_random_recette();
@@ -63,7 +66,16 @@ public class middel_menu {
 	
 	
 	
-	
+	public void new_recherche(ArrayList<Recette> recettes) {
+		flow_pane.getChildren().clear();
+		
+		for (Recette recette : recettes) {
+			GridPane tmp = create_item(recette);
+			tmp.getStyleClass().add("grid_item");
+			flow_pane.setMargin(tmp, new Insets(5, 5, 5, 5));
+			list.addAll(tmp);
+		}
+	}
 	
 	
 	

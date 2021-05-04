@@ -58,6 +58,7 @@ public class Controleur {
 			résultats.add(this.modl.recettes.get(s));
 		}
 		
+		this.vue.middel1.new_recherche(résultats);
 		return résultats;
 	}
 	

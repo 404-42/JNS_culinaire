@@ -27,6 +27,7 @@ public class Vue extends Application {
 	public ScrollPane root2, root3;
 	public HBox top;
 	public VBox left;
+	public middel_menu middel1 = new middel_menu(ctrl);
 	public Scene scene;
 	
 	public static void main(String[] args) {
@@ -47,11 +48,11 @@ public class Vue extends Application {
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		top = new top_menu(ctrl).set_top();
 		left = new left_menu(ctrl).set_left();
-		FlowPane middel1 = new middel_menu(ctrl).set_middel();
+		FlowPane m1 = middel1.set_middel();
 		
 		root2 = new ScrollPane();
-		middel1.setMinWidth(1046);
-		root2.setContent(middel1);
+		m1.setMinWidth(1046);
+		root2.setContent(m1);
 		root2.setPannable(true);
 		
 		
