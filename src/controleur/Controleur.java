@@ -79,6 +79,7 @@ public class Controleur {
 		
 		for (String s: résultats) résultatsFinal.add(this.modl.recettes.get(s));
 		
+		this.vue.middel1.new_recherche(résultatsFinal);
 		return résultatsFinal;
 	}
 	
@@ -99,6 +100,7 @@ public class Controleur {
 		
 		for (String s: résultats) résultatsFinal.add(this.modl.recettes.get(s));
 		
+		this.vue.middel1.new_recherche(résultatsFinal);
 		return résultatsFinal;
 	}
 	
